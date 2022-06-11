@@ -1,0 +1,26 @@
+{% comment %} check for errors {% endcomment %}
+{% if form.errors %}
+    <p>your username or password are incorrect! please try again</p>
+{% endif %}
+
+{% comment %} user logged in but has no access {% endcomment %}
+{% comment %} diango has a variable called next which indicates that user has gone for next page(logged in) {% endcomment %}
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>You don't have permission for this page</p>
+    {% else %}
+        <p>please login to see this page</p>
+    {% endif %}
+{% endif %}
+
+{% comment %} user not logged in {% endcomment %}
+{% comment %} make a form to login {% endcomment %}
+<form method='POST' action='{% url 'login' %}'>
+    {% csrf_token %}
+    {{form.username.label_tag}}
+    {{form.username}}
+    {{form.password.label_tag}}
+    {{form.password}}
+    <input type='Submit' value='login'>
+    <input type='hidden' name='next' value='{{next}}'>
+</form>

@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main Page</title>
+  </head>
+
+  <body>
+    
+    {% if user.is_authenticated %}
+      {% comment %} ?next={{request.path}} used to bring you back to he page you clicked login or logout from {% endcomment %}
+      <p>You are logged in! <a href="{% url 'logout' %}?next={{request.path}}">logout</a></p>
+      <p>Welcome: {{user.get_username}}</p>
+    {% else %}
+      <p>You are not logged in! <a href="{% url 'login' %}?next={{request.path}}">login</a></p>
+    {% endif %}
+
+    <h1>Homepage</h1>
+    <p>Total Books: {{num_books}}</p>
+    <p>Num available: {{num_instances_avail}}</p>
+    
+  </body>
+</html>
